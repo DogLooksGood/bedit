@@ -1,0 +1,8 @@
+# BEdit - Batched Edit
+
+
+BEdit works similarly to the BEACON state in Meow, but requires no modal editing and is less distracting (with no visual effects).
+
+BEdit also uses a temporary buffer for macro recording, which makes cancellation and undo easier.
+
+Check the documentation for usage.
