@@ -52,6 +52,7 @@
 ;;     - Position in current column      C-M-g o
 ;;     - Chars like the one at point     C-M-g c
 ;;     - Symbols like the one at point   C-M-g .
+;;     - Words like the one at point     C-M-g w
 ;;     - Same content with region        C-M-g s
 ;;
 ;; These command will bring you to a temporary buffer where you record the kmacros.
@@ -92,6 +93,7 @@
     (define-key m (kbd "p")     #'bedit-paragraph-to-secondary-selection)
     (define-key m (kbd "l")     #'bedit-line-to-secondary-selection)
     (define-key m (kbd ".")     #'bedit-start-with-symbols-like-this)
+    (define-key m (kbd "w")     #'bedit-start-with-words-like-this)
     (define-key m (kbd "s")     #'bedit-start-with-search-like-this)
     (define-key m (kbd "o")     #'bedit-start-with-lines)
     (define-key m (kbd "e")     #'bedit-start-with-end-of-lines)
@@ -234,6 +236,23 @@
 
 (defun bedit--start-macro ()
   (call-interactively #'kmacro-start-macro))
+
+(defun bedit-start-with-words-like-this ()
+  (interactive)
+  (if-let* ((word (thing-at-point 'word t)))
+      (let ((search (format "\\<%s\\>" (regexp-quote word))))
+        (bedit--create-recording-buffer)
+        (setq bedit--editing-search
+              (lambda (bound)
+                (search-forward-regexp search bound t)))
+        (setq bedit--editing-search-offset
+              (save-mark-and-excursion
+                (let ((p (point)))
+                  (forward-word -1)
+                  (search-forward-regexp search)
+                  (- p (point)))))
+        (bedit--start-macro))
+    (message "No word found at point")))
 
 (defun bedit-start-with-symbols-like-this ()
   (interactive)
