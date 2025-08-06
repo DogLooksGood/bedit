@@ -69,6 +69,9 @@
 ;; To cancel the editing, press C-g at any step or press C-M-g C-g to cancel secondary selection.
 ;;; Code:
 
+(require 'thingatpt)
+(require 'kmacro)
+
 (defvar bedit--editing-search nil
   "The type of current editing thing.")
 
@@ -96,7 +99,6 @@
     (define-key m (kbd "w")     #'bedit-start-with-words-like-this)
     (define-key m (kbd "s")     #'bedit-start-with-search-like-this)
     (define-key m (kbd "o")     #'bedit-start-with-lines)
-    (define-key m (kbd "e")     #'bedit-start-with-end-of-lines)
     (define-key m (kbd "c")     #'bedit-start-with-chars-like-this)
     m)
   "The keymap for commands to use with BEdit")
