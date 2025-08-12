@@ -217,7 +217,8 @@
   (let* ((mm major-mode)
          (bufname (format " *bedit on %s*" (buffer-name)))
          (orig-buf (current-buffer))
-         (p (point)))
+         (p (point))
+         (ws (window-start)))
     (bedit-extending-mode -1)
     ;; Kill the old existing buffer first
     (when-let* ((buf (get-buffer bufname)))
@@ -227,6 +228,7 @@
       (funcall mm)
       (insert-buffer orig-buf)
       (setq bedit--editing-buffer (buffer-name orig-buf))
+      (set-window-start nil ws)
       (goto-char p)
       (bedit-recording-mode 1)
       buf)))
