@@ -84,7 +84,7 @@
 (defvar bedit--extending-start nil
   "Where we entered `bedit-extending-mode'.")
 
-(defcustom bedit-inhibit-modes '(font-lock-mode company-mode)
+(defcustom bedit-inhibit-modes nil
   "Disable these modes during execution.")
 
 (defvar bedit-prefix-map
