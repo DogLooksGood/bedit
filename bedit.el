@@ -67,7 +67,7 @@
 ;;
 ;; Cancellation:
 ;;
-;; To cancel the editing, press C-g at any step or press C-M-g C-g to cancel secondary selection.
+;; To cancel the editing, press C-g  any stage.
 ;;; Code:
 
 (require 'thingatpt)
